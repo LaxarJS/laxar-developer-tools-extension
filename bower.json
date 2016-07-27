@@ -1,0 +1,11 @@
+{
+   "name": "laxar-developer-tools-extension",
+   "version": "0.1.0-pre",
+   "description": "A Browser Extension that helps developing LaxarJS applications",
+   "private": true,
+   "authors": [],
+   "license": "MIT",
+   "dependencies": {
+      "laxar-developer-tools-widget": "2.1.0-alpha.0"
+   }
+}
