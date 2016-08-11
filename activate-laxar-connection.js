@@ -4,6 +4,7 @@
  * http://laxarjs.org/license
  */
 
-function axDeveloperToolsExtensionActivate(){
+function axDeveloperToolsExtensionActivate() {
+   'use strict';
    document.body.setAttribute( 'data-laxar-developer-tools-extension', '' );
 }
