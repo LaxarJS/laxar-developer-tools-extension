@@ -6,20 +6,30 @@
 
 /* global chrome */
 
+var ICON_PATH = 'laxar-developer-tools-widget/content/includes/widgets/developer-toolbar-widget/' +
+                'default.theme/images/title-icon.png';
+
+var WIDGET_CONTENT_PATH ='laxar-developer-tools-widget/content/index.html';
+
 chrome.devtools.panels.create(
    'LaxarJS',
-   'laxar-developer-tools-widget/content/includes/widgets/developer-toolbar-widget/default.theme/images/title-icon.png',
-   'laxar-developer-tools-widget/content/index.html',
+   ICON_PATH,
+   WIDGET_CONTENT_PATH,
+
    function( panel ) {
       'use strict';
       var REFRESH_DELAY_MS = 100;
       var getLaxarDeveloperToolsApiInterval;
 
       panel.onShown.addListener( function( panelWindow ) {
+         chrome.storage.local.set( { 'laxar-developer-tools': 'activate' }, function() { } );
+         chrome.devtools.inspectedWindow.eval( 'laxarDeveloperToolsExtensionLoaded', function( value ) {
+            value = true;
+         } );
 
          panelWindow.addEventListener( 'widgetOutline', function() {
             chrome.devtools.inspectedWindow.eval(
-               'axDeveloperToolsToggleWidgetOutline(' + JSON.stringify( chrome.runtime.id ) + ')' ,
+               'axDeveloperToolsToggleWidgetOutline()',
                { useContentScriptContext: true }
             );
          } );
@@ -29,8 +39,7 @@ chrome.devtools.panels.create(
          panelWindow.addEventListener( 'toogleGrid', function( event ) {
             var gridSettings = event.detail;
             chrome.devtools.inspectedWindow.eval(
-               'axDeveloperToolsToggleGrid( '+ gridSettings + ', ' +
-                                            JSON.stringify( chrome.runtime.id ) + ' )',
+               'axDeveloperToolsToggleGrid( '+ gridSettings + ' )',
                { useContentScriptContext: true }
             );
          } );
@@ -38,7 +47,7 @@ chrome.devtools.panels.create(
          /////////////////////////////////////////////////////////////////////////////////////////////////////
 
          getLaxarDeveloperToolsApiInterval = setInterval( function() {
-            chrome.devtools.inspectedWindow.eval( 'axDeveloperToolsApi',
+            chrome.devtools.inspectedWindow.eval( 'laxarDeveloperToolsApi',
                function( axDeveloperToolsApi, isException ) {
                   var event;
                   if( isException ) {
@@ -61,6 +70,7 @@ chrome.devtools.panels.create(
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       panel.onHidden.addListener( function() {
+         chrome.storage.local.clear( function() { } );
          if( getLaxarDeveloperToolsApiInterval ) {
             clearInterval( getLaxarDeveloperToolsApiInterval );
          }

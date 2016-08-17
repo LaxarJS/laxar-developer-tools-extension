@@ -10,7 +10,13 @@
       {
          "matches": [ "<all_urls>" ],
          "js": [
-            "activate-laxar-connection.js",
+            "activate-laxar-connection.js"
+         ],
+         "run_at": "document_start"
+      },
+      {
+         "matches": [ "<all_urls>" ],
+         "js": [
             "laxar-developer-tools-widget/content/includes/lib/laxar-developer-tools/widget-outline.js",
             "laxar-developer-tools-widget/content/includes/lib/laxar-developer-tools/grid.js"
          ],
@@ -25,7 +31,8 @@
       "persistent": true
    },
    "permissions": [
-         "background"
+         "background",
+         "storage"
    ],
    "page_action": {
       "default_icon": {

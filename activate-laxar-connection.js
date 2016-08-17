@@ -4,7 +4,11 @@
  * http://laxarjs.org/license
  */
 
-function axDeveloperToolsExtensionActivate() {
+/* global chrome */
+
+chrome.storage.local.get( 'laxar-developer-tools', function( item ) {
    'use strict';
-   document.body.setAttribute( 'data-laxar-developer-tools-extension', '' );
-}
+   if( item[ 'laxar-developer-tools' ] === 'activate' ) {
+      document.documentElement.setAttribute( 'data-laxar-developer-tools-extension', '' );
+   }
+} );
