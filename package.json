@@ -1,0 +1,11 @@
+{
+   "name": "laxar-developer-tools-web-extension",
+   "author": "LaxarJS",
+   "license": "MIT",
+   "dependencies": {
+   },
+   "devDependencies": {
+      "path": "^0.12.7",
+      "grunt": "^1.0.1"
+   }
+}

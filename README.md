@@ -10,3 +10,35 @@ To use the developer version of the laxar-developer-tools-widget modify the `WID
 [README](https://github.com/LaxarJS/ax-developer-tools-widget) of the widget.
 
 Hint: Open developer console with `F12`, undock the console and then open the developer console for the extension with `Strg+Shift+J`
+
+
+## Create Extension Package
+
+To build the extension clean the dist folder at first:
+```
+grunt clean-dist
+```
+
+Copy the widget to the dist folder:
+```
+grunt copy-widget
+```
+
+Install node modules and create dist version of the widget:
+```
+cd dist/laxar-developer-tools-web-extension/laxar-developer-tools-widget/content
+npm install
+grunt dist-without-optimize
+cd ../../../../
+```
+
+Create dist version of extension:
+```
+grunt dist
+```
+
+Create extension package:
+```
+cd dist
+google-chrome --pack-extension=laxar-developer-tools-web-extension --pack-extension-key=[extension_key]
+```
