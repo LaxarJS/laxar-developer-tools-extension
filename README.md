@@ -36,9 +36,3 @@ Create dist version of extension:
 ```
 grunt dist
 ```
-
-Create extension package:
-```
-cd dist
-google-chrome --pack-extension=laxar-developer-tools-web-extension --pack-extension-key=[extension_key]
-```
