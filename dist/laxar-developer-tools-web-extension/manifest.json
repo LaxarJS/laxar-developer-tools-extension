@@ -1,7 +1,7 @@
 {
    "manifest_version": 2,
    "name": "LaxarJS Developer Tools",
-   "version": "0.2.0-pre",
+   "version": "0.3.0-pre",
    "description":  "A browser web extension that helps to develop LaxarJS applications",
    "author": "aixigo AG",
    "icons": {
