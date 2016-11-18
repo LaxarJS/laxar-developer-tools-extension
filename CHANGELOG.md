@@ -3,6 +3,8 @@
 
 ## Last Changes
 
+- [#2](https://github.com/LaxarJS/laxar-developer-tools-web-extension/issues/2): inform the inspected laxar app when the event buffer was read
+
 
 ## v0.2.0
 

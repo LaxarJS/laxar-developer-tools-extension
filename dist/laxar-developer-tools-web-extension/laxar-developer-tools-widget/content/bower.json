@@ -17,5 +17,8 @@
   "devDependencies": {
     "jasmine2": "jasmine#2.3.x",
     "laxar-mocks": "~1.0.0"
+  },
+  "resolutions": {
+    "jjv": "525475c9abd36ec1e939b65a3ba112367928c056"
   }
 }
