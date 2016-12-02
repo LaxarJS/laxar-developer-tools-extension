@@ -18,7 +18,7 @@ chrome.devtools.panels.create(
 
    function( panel ) {
       'use strict';
-      var REFRESH_DELAY_MS = 300;
+      var REFRESH_DELAY_MS = 200;
       var getLaxarDeveloperToolsApiInterval;
 
       panel.onShown.addListener( function( panelWindow ) {
