@@ -6,9 +6,10 @@
 
 /* global chrome */
 
-chrome.storage.local.get( 'laxar-developer-tools', function( item ) {
+chrome.storage.onChanged.addListener( function( changes ) {
    'use strict';
-   if( item[ 'laxar-developer-tools' ] === 'activate' ) {
-      document.documentElement.setAttribute( 'data-laxar-developer-tools-extension', '' );
+   var newValue = changes[ 'laxar-developer-tools' ] && changes[ 'laxar-developer-tools' ].newValue;
+   if( newValue && newValue.lastAccess ) {
+      document.documentElement.setAttribute( 'data-laxar-developer-tools-extension', newValue.lastAccess );
    }
 } );

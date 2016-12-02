@@ -18,14 +18,10 @@ chrome.devtools.panels.create(
 
    function( panel ) {
       'use strict';
-      var REFRESH_DELAY_MS = 100;
+      var REFRESH_DELAY_MS = 200;
       var getLaxarDeveloperToolsApiInterval;
 
       panel.onShown.addListener( function( panelWindow ) {
-         chrome.storage.local.set( { 'laxar-developer-tools': 'activate' }, function() { } );
-         chrome.devtools.inspectedWindow.eval( 'laxarDeveloperToolsExtensionLoaded', function( value ) {
-            value = true;
-         } );
 
          panelWindow.addEventListener( 'widgetOutline', function() {
             chrome.devtools.inspectedWindow.eval(
@@ -47,6 +43,7 @@ chrome.devtools.panels.create(
          /////////////////////////////////////////////////////////////////////////////////////////////////////
 
          getLaxarDeveloperToolsApiInterval = setInterval( function() {
+
             chrome.devtools.inspectedWindow.eval( 'laxarDeveloperToolsApi',
                function( axDeveloperToolsApi, isException ) {
                   var event;
@@ -61,6 +58,7 @@ chrome.devtools.panels.create(
                         detail: JSON.stringify( axDeveloperToolsApi )
                      } );
                      panelWindow.dispatchEvent( event );
+                     chrome.storage.local.set( { 'laxar-developer-tools': { lastAccess: Date.now() } } );
                   }
                }
             );

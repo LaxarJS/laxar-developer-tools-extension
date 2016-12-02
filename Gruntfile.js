@@ -57,7 +57,8 @@ module.exports = function( grunt ) {
          'createPanel.js',
          'devtools.html',
          'LICENSE',
-         'manifest.json'
+         'manifest.json',
+         'icons'
       ];
 
       files.forEach( function( filepath ) {
