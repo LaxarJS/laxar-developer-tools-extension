@@ -6,6 +6,9 @@
    },
    "devDependencies": {
       "path": "^0.12.7",
-      "grunt": "^1.0.1"
+      "grunt": "^1.0.1",
+      "eslint": "^3.0.1",
+      "eslint-config-laxarjs": "^0.3.0",
+      "eslint-plugin-react": "^6.8.0"
    }
 }

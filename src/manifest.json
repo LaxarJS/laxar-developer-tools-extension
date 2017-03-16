@@ -1,7 +1,7 @@
 {
    "manifest_version": 2,
    "name": "LaxarJS Developer Tools",
-   "version": "0.3.0-pre",
+   "version": "0.3.0",
    "description":  "A browser extension that helps to develop LaxarJS applications",
    "author": "aixigo AG",
    "icons": {
@@ -22,8 +22,8 @@
       {
          "matches": [ "<all_urls>" ],
          "js": [
-            "laxar-developer-tools-widget/content/includes/lib/laxar-developer-tools/widget-outline.js",
-            "laxar-developer-tools-widget/content/includes/lib/laxar-developer-tools/grid.js"
+            "laxar-developer-tools-widget/content/lib/laxar-developer-tools/widget-outline.js",
+            "laxar-developer-tools-widget/content/lib/laxar-developer-tools/grid.js"
          ],
          "css": [ "laxar-developer-tools-widget/default.theme/css/ax-developer-tools-widget.css" ],
          "run_at": "document_end"
@@ -41,7 +41,7 @@
    ],
    "page_action": {
       "default_icon": {
-         "38": "laxar-developer-tools-widget/content/includes/widgets/developer-toolbar-widget/default.theme/images/title-icon.png"
+         "38": "laxar-developer-tools-widget/content/widgets/developer-toolbar-widget/default.theme/images/title-icon.png"
       },
       "default_title":  "LaxarJS Developer Tools"
    }

@@ -6,24 +6,24 @@
 
 /* global chrome */
 
-var ICON_PATH = 'laxar-developer-tools-widget/content/includes/widgets/developer-toolbar-widget/' +
+const ICON_PATH = 'laxar-developer-tools-widget/content/widgets/developer-toolbar-widget/' +
                 'default.theme/images/title-icon.png';
 
-var WIDGET_CONTENT_PATH ='laxar-developer-tools-widget/content/index.html';
+const WIDGET_CONTENT_PATH = 'laxar-developer-tools-widget/content/debug.html';
 
 chrome.devtools.panels.create(
    'LaxarJS',
    ICON_PATH,
    WIDGET_CONTENT_PATH,
 
-   function( panel ) {
+   panel => {
       'use strict';
-      var REFRESH_DELAY_MS = 200;
-      var getLaxarDeveloperToolsApiInterval;
+      const REFRESH_DELAY_MS = 200;
+      let getLaxarDeveloperToolsApiInterval;
 
-      panel.onShown.addListener( function( panelWindow ) {
+      panel.onShown.addListener( panelWindow => {
 
-         panelWindow.addEventListener( 'widgetOutline', function() {
+         panelWindow.addEventListener( 'widgetOutline', () => {
             chrome.devtools.inspectedWindow.eval(
                'axDeveloperToolsToggleWidgetOutline()',
                { useContentScriptContext: true }
@@ -32,7 +32,7 @@ chrome.devtools.panels.create(
 
          /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-         panelWindow.addEventListener( 'toogleGrid', function( event ) {
+         panelWindow.addEventListener( 'toogleGrid', event => {
             var gridSettings = event.detail;
             chrome.devtools.inspectedWindow.eval(
                'axDeveloperToolsToggleGrid( '+ gridSettings + ' )',
