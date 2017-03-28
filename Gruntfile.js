@@ -1,94 +1,96 @@
 /* global module */
 
-var path = require( 'path' );
+/* global require */
+const path = require( 'path' );
+
 
 module.exports = function( grunt ) {
    'use strict';
 
    grunt.initConfig( {
-      'extension-dist-path': 'dist/laxar-developer-tools-web-extension',
-      'widget-content-path': 'dist/laxar-developer-tools-web-extension/laxar-developer-tools-widget/content'
+      'extension-dist-path': 'dist',
+      'extension-src-path': 'src',
+      'extension-content-path': 'laxar-developer-tools-content'
    } );
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   grunt.registerTask( 'dist', [ 'delete-unnecessary-widget-files', 'copy-source-files' ] );
+   grunt.registerTask( 'dist', [
+         'copy-source-files',
+         'delete-unnecessary-content-files'
+   ] );
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   grunt.registerTask( 'delete-unnecessary-widget-files', function() {
-      var widgetPath = 'dist/laxar-developer-tools-web-extension/laxar-developer-tools-widget/';
-      var files = [
+   grunt.registerTask( 'copy-source-files', () => {
+      const distPath = grunt.config.get( 'extension-dist-path' );
+      const srcPath = grunt.config.get( 'extension-src-path' );
+      grunt.file.copy( srcPath, distPath );
+   } );
+
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+   grunt.registerTask( 'delete-unnecessary-content-files', () => {
+      const distPath = grunt.config.get( 'extension-dist-path' );
+      const contentPath = grunt.config.get( 'extension-content-path' );
+
+      const files = [
+         '.babelrc',
+         '.git',
+         '.editorconfig',
+         '.eslintrc.json',
          '.gitignore',
          '.travis.yml',
-         'content/.gitignore',
-         'content/.jshintrc',
-         'content/var/flows/main/dist/bundle.js.map',
-         'content/var/flows/main/dist/default.theme.css.map',
-         'content/node_modules',
-         'spec',
-         'content/includes/widgets/developer-toolbar-widget/spec',
-         'content/includes/widgets/events-display-widget/spec',
-         'content/includes/widgets/log-display-widget/spec',
-         'content/includes/widgets/page-inspector-widget/spec'
+         'CHANGELOG.md',
+         'CONTRIBUTING.md',
+         'karma.config.js',
+         'LICENSE-MIT',
+         'package.json',
+         'README.md',
+         'webpack.config.js',
+         'spec-output',
+         'node_modules',
+         'application/widgets/developer-toolbar-widget/spec',
+         'application/widgets/events-display-widget/spec',
+         'application/widgets/host-connctor-widget/spec',
+         'application/widgets/log-display-widget/spec',
+         'application/widgets/page-inspector-widget/spec'
       ];
-
-      grunt.file.copy(
-         path.resolve( widgetPath, 'content/bower_components/laxar-uikit/dist/themes/default.theme/fonts' ),
-         path.resolve( widgetPath, 'tmp/fonts' )
-      );
-      grunt.file.delete( path.resolve( widgetPath, 'content/bower_components' ) );
-      grunt.file.copy(
-         path.resolve( widgetPath, 'tmp/fonts' ),
-         path.resolve( widgetPath, 'content/bower_components/laxar-uikit/dist/themes/default.theme/fonts' )
-      );
-      grunt.file.delete( path.resolve( widgetPath, 'tmp' ) );
-      files.forEach( function( filepath ) {
-         grunt.file.delete( path.resolve( widgetPath, filepath ) );
+      files.forEach( filePath => {
+         if( grunt.file.exists( path.resolve( distPath, contentPath, filePath ) ) ) {
+            const fullPathToFile = path.resolve( distPath, contentPath, filePath );
+            grunt.log.writeln( `Deleting file ${fullPathToFile}` );
+            grunt.file.delete( fullPathToFile );
+         }
       } );
    } );
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   grunt.registerTask( 'copy-source-files', function() {
-      var files = [
-         'activate-laxar-connection.js',
-         'background.js',
-         'createPanel.js',
-         'devtools.html',
-         'LICENSE',
-         'manifest.json',
-         'icons'
-      ];
+   /*
+    *  Delete the dist output and create a empty dist directory for further creations of dist version
+    */
 
-      files.forEach( function( filepath ) {
-         grunt.file.copy(
-            path.resolve( 'src/', filepath ),
-            path.resolve( 'dist/laxar-developer-tools-web-extension/', filepath )
-         );
-      } );
-   } );
-
-   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-   grunt.registerTask( 'clean-dist', function() {
-      var extensionDistPath = grunt.config.get( 'extension-dist-path' );
+   grunt.registerTask( 'clean-dist', () => {
+      const extensionDistPath = grunt.config.get( 'extension-dist-path' );
       grunt.file.delete( extensionDistPath );
       grunt.file.mkdir( extensionDistPath );
    } );
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   grunt.registerTask( 'copy-widget', function() {
-      var extensionDistPath = grunt.config.get( 'extension-dist-path' );
-      var widgetDistPath = path.resolve( extensionDistPath, 'laxar-developer-tools-widget' );
-      var widgetSrcPath = 'src/laxar-developer-tools-widget/';
-      grunt.file.copy( widgetSrcPath, widgetDistPath );
-      grunt.file.delete( path.resolve( widgetDistPath, '.git' ) );
-
-      var widgetContentPath = grunt.config.get( 'widget-content-path' );
-      grunt.file.delete( path.resolve( widgetContentPath, 'bower_components' ) );
+   /*
+    *  Some node module in the laxar developer tools content application
+    *  have test files with prevent chrome to load the extension
+    */
+   grunt.registerTask( 'clean-src', () => {
+      const files = [
+         'src/laxar-developer-tools-content/node_modules/eventsource/test/key.pem',
+         'src/laxar-developer-tools-content/node_modules/public-encrypt/test/test_key.pem',
+         'src/laxar-developer-tools-content/node_modules/public-encrypt/test/test_rsa_pubkey.pem',
+         'src/laxar-developer-tools-content/node_modules/public-encrypt/test/test_rsa_privkey.pem'
+      ];
+      files.forEach( path => grunt.file.delete( path ) );
    } );
-
 
 };

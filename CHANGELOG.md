@@ -3,6 +3,8 @@
 
 ## Last Changes
 
+- [#4](https://github.com/LaxarJS/laxar-developer-tools-web-extension/issues/4): using laxar-developer-tools-content instead of laxar-developer-tools-widget
+
 - [#2](https://github.com/LaxarJS/laxar-developer-tools-web-extension/issues/2): inform the inspected laxar app when the event buffer was read
 
 
