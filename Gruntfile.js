@@ -15,10 +15,14 @@ module.exports = function( grunt ) {
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   grunt.registerTask( 'dist', [
+   grunt.registerTask(
+      'dist',
+      [
+         'clean-dist',
          'copy-source-files',
          'delete-unnecessary-content-files'
-   ] );
+      ]
+   );
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -50,6 +54,7 @@ module.exports = function( grunt ) {
          'webpack.config.js',
          'spec-output',
          'node_modules',
+         'debug.html',
          'application/widgets/developer-toolbar-widget/spec',
          'application/widgets/events-display-widget/spec',
          'application/widgets/host-connctor-widget/spec',
@@ -68,7 +73,7 @@ module.exports = function( grunt ) {
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    /*
-    *  Delete the dist output and create a empty dist directory for further creations of dist version
+    *  Delete the dist output and create an empty dist directory for further creations of dist version
     */
 
    grunt.registerTask( 'clean-dist', () => {

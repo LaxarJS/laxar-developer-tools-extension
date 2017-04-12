@@ -5,31 +5,21 @@ It adds an additional tab to the developer tools that displays application event
 
 
 ## Develop
-
-To use the developer version of the laxar-developer-tools-widget modify the `WIDGET_CONTENT_PATH` in the file `createPanel.js` from `'laxar-developer-tools-widget/content/index.html'` to `'laxar-developer-tools-widget/content/debug.html'` and follow the instruction in the
-[README](https://github.com/LaxarJS/ax-developer-tools-widget) of the widget.
+const CONTENT_PATH = 'laxar-developer-tools-content/index.html';
+To use the developer version of the laxar-developer-tools-content modify the `CONTENT_PATH` in the file `createPanel.js` from `'laxar-developer-tools-content/index.html'` to `'laxar-developer-tools-content/debug.html'` and follow the instruction in the
+[README](https://github.com/LaxarJS/laxar-developer-tools-content) of the widget.
 
 Hint: Open developer console with `F12`, undock the console and then open the developer console for the extension with `Strg+Shift+J`
 
 
 ## Create Extension Package
 
-To build the extension clean the dist folder at first:
+Install node modules for the content application and create dist version of the content application:
 ```
-grunt clean-dist
-```
-
-Copy the widget to the dist folder:
-```
-grunt copy-widget
-```
-
-Install node modules and create dist version of the widget:
-```
-cd dist/laxar-developer-tools-web-extension/laxar-developer-tools-widget/content
+cd src/laxar-developer-tools-content
 npm install
-grunt dist-without-optimize
-cd ../../../../
+npm run optimize
+cd ../../
 ```
 
 Create dist version of extension:
