@@ -1,7 +1,11 @@
 {
    "name": "laxar-developer-tools-web-extension",
    "author": "LaxarJS",
+   "private": true,
    "license": "MIT",
+   "scripts": {
+      "prepublish": "grunt dist"
+   },
    "dependencies": {
    },
    "devDependencies": {
